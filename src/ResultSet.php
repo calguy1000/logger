@@ -1,17 +1,62 @@
 <?php
 
+/**
+ * A clasos allowing interaction with the results of an executed query.
+ *
+ * @package logger
+ */
+
 namespace calguy1000\logger;
 
+/**
+ * A clasos allowing interaction with the results of an executed query.
+ *
+ * This class implements the Iterator interface to allow interacting with the results in a foreach loop.
+ *
+ * @package logger
+ * @package logger
+ * @author Robert Campbell <calguy1000@gmail.com>
+ * @copyright 2015
+ * @license LGPL2.1
+ */
 class ResultSet implements \Iterator
 {
+    /**
+     * @ignore
+     */
     private $_cur_offset = 0;
+
+    /**
+     * @ignore
+     */
     private $_matches = array();
+
+    /**
+     * @ignore
+     */
     private $_filter;
+
+    /**
+     * @ignore
+     */
     private $_buffer;
+                                                \
+    /**
+     * @ignore
+     */
     private $_bufsize = 4096;
+
+    /**
+     * @ignore
+     */
     private $_cur_match = 0;
 
-    public function __construct(query $filter)
+    /**
+     * Constructor.
+     *
+     * @param Query $filter The query object.
+     */
+    public function __construct(Query $filter)
     {
         $this->_filter = $filter;
         // validate that the file exists and is readable.
@@ -19,6 +64,9 @@ class ResultSet implements \Iterator
         $this->_execute();
     }
 
+    /**
+     * @ignore
+     */
     private function _get_buffer($fh)
     {
         // if we have a buffer, that has a newline in it, just return the buffer
@@ -36,6 +84,9 @@ class ResultSet implements \Iterator
         return $this->_buffer;
     }
 
+    /**
+     * @ignore
+     */
     private function _read_line($fh)
     {
         $line = null;
@@ -52,12 +103,18 @@ class ResultSet implements \Iterator
         return $line;
     }
 
+    /**
+     * @ignore
+     */
     private function _read_item($fh)
     {
         $line = $this->_read_line($fh);
         if( $line ) return utils::item_to_line($line);
     }
 
+    /**
+     * @ignore
+     */
     private function _item_matches($item)
     {
         $filter = $this->_filter;
@@ -112,6 +169,9 @@ class ResultSet implements \Iterator
         return TRUE;
     }
 
+    /**
+     * @ignore
+     */
     private function _scan_file($filename)
     {
         $fh = null;
@@ -145,6 +205,9 @@ class ResultSet implements \Iterator
         }
     }
 
+    /**
+     * @ignore
+     */
     private function _execute()
     {
         $files = array($this->_filter->filename);

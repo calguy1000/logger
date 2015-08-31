@@ -1,11 +1,43 @@
 <?php
 
+/**
+ * The class to define a query.
+ *
+ * @package logger
+ */
+
 namespace calguy1000\logger;
 
+/**
+ * This class defines a query for filtering data from a logfile.
+ *
+ * @package logger
+ * @author Robert Campbell <calguy1000@gmail.com>
+ * @copyright 2015
+ * @license LGPL2.1
+ * @property string $filename The primary log file name.
+ * @property bool   $use_archives Wether or not to search through archives of the logfile.
+ * @property int    $start_time A unix timestamp to filter results by.  No results before this time will be returned.
+ * @property int    $end_time A unix timestamp to filter results by.  No results after this time will be returned.
+ * @property string $priority A priority string from the Logger class.
+ * @property string $section An optional section key to filter results by.  Wildcards are accepted.
+ * @property int    $item An optional item key to filter results by.
+ * @property string $msg An optional message string to filter results by.  Wildcards are accepted.
+ * @property int    $limit The number of results to return.  The default, and maximum is 1000
+ * @property int    $offset The offset of results to return (start returning matches after this number are found).  The default value is 0.
+ */
 class Query
 {
+    /**
+     * @ignore
+     */
     private $_data = array();
 
+    /**
+     * @constructor
+     *
+     * @param array $parms An associative array of properties for the object.
+     */
     public function __construct($parms)
     {
         foreach( $parms as $key => $val ) {
@@ -13,6 +45,9 @@ class Query
         }
     }
 
+    /**
+     * @ignore
+     */
     public function __get($key)
     {
         switch( $key ) {
@@ -34,6 +69,9 @@ class Query
         }
     }
 
+    /**
+     * @ignore
+     */
     public function __set($key,$val)
     {
         $val = trim($val);
@@ -94,6 +132,11 @@ class Query
         }
     }
 
+    /**
+     * Execute the query given the current parameters.
+     *
+     * @return ResultSet
+     */
     public function &execute()
     {
         // results in a resultset object
