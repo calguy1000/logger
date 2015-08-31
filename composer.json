@@ -3,6 +3,7 @@
     "description": "A powerful application logging, and log querying tool.",
     "type": "library",
     "license": "LGPL-2.1+",
+    "version": "1.0"
     "authors": [
         {
             "name": "Robert Campbell",
