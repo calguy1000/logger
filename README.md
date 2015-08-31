@@ -55,7 +55,7 @@ $logger->error('A fatal error');
 ```
 require '../vendor/autoload.php'
 use calguy1000\logger\Logger as Logger;
-$parms = array('filename'=>'logfile.txt','limit'=>50,'msg'=>'fatal`);
+$parms = array('filename'=>'logfile.txt','limit'=>50,'msg'=>'*fatal*`);
 $query = new Logger\query($parms);
 $rs = $query->execute();
 foreach( $rs as $key => $item ) {
