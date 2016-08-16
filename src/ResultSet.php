@@ -40,7 +40,7 @@ class ResultSet implements \Iterator
      * @ignore
      */
     private $_buffer;
-                                                \
+                                                
     /**
      * @ignore
      */
