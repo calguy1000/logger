@@ -2,7 +2,7 @@
 <?php
 
 require '../vendor/autoload.php';
-use \calguy1000\logger\Logger as Logger;
+use \calguy1000\logger\AutoRoateFileLogger as Logger;
 
 // a simple way to test multiple apps writing to the same log file at the same time.
 // call this function like php logger_test3.php sectionName

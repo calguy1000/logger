@@ -2,7 +2,7 @@
 <?php
 
 require '../vendor/autoload.php';
-use \calguy1000\logger\Logger as Logger;
+use \calguy1000\logger\AutoRotateFileLogger as Logger;
 
 // test two loggers writing to the same file with different rotation settings.
 @mkdir(__DIR__.'/logs');

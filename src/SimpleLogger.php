@@ -16,7 +16,7 @@ namespace calguy1000\logger;
  * @copyright 2015
  * @license LGPL2.1
  */
-class SimpleLogger
+class SimpleLogger implements Logger
 {
     /**
      * @ignore
