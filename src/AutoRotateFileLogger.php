@@ -18,6 +18,10 @@ namespace calguy1000\logger;
  */
 class AutoRotateFileLogger extends FileLogger
 {
+    /**
+     * @ignore
+     */
+    private $_rotated;
 
     /**
      * @ignore
@@ -72,12 +76,15 @@ class AutoRotateFileLogger extends FileLogger
      */
     private function rotate()
     {
+        if( $this->_rotated ) {
+            return;
+        }
         if (!is_file($this->filename)) {
             return;
         }
         clearstatcache($this->filename);
-        if (filesize($this->filename) < $this->_max_size * 1024
-            && filectime($this->filename) > time() - $this->_max_age * 3600
+        if (filesize($this->filename) >= $this->_max_size * 1024
+            && filectime($this->filename) >= time() - $this->_max_age * 3600
         ) {
             return;
         }
@@ -102,6 +109,7 @@ class AutoRotateFileLogger extends FileLogger
         }
         $dest_fn = sprintf($dest_pattern, 1);
         rename($this->filename, $dest_fn);
+        $this->_rotated = 1;
     }
 
 

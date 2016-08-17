@@ -179,7 +179,6 @@ class FileLogger implements Logger
      */
     private function _compare_item($item1, $item2)
     {
-        echo __METHOD__."\n"; print_r($item1); echo "--\n"; print_r($item2);
         return( $item1['priority'] == $item2['priority'] && $item1['section'] == $item2['section'] && $item1['item'] == $item2['item'] && $item1['msg'] == $item2['msg'] );
     }
 
