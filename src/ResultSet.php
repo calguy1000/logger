@@ -40,7 +40,7 @@ class ResultSet implements \Iterator
      * @ignore
      */
     private $_buffer;
-                                                
+
     /**
      * @ignore
      */
@@ -109,7 +109,7 @@ class ResultSet implements \Iterator
     private function _read_item($fh)
     {
         $line = $this->_read_line($fh);
-        if( $line ) return utils::item_to_line($line);
+        if( $line ) return item_to_line($line);
     }
 
     /**

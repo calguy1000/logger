@@ -13,7 +13,10 @@
     "autoload": {
        "psr-4": {
            "calguy1000\\logger\\": "src/"
-       }
+       },
+       "files": [
+           "src/utils.php"
+       ]
     },
     "require": {}
 }

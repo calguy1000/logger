@@ -134,40 +134,10 @@ class FileLogger implements Logger
     /**
      * @ignore
      */
-    private function _item_to_line($item)
-    {
-        $item['date'] = strftime('%d-%m-%Y %H:%M:%S',$item['date']);
-        $line = implode(" // ",array_values($item));
-        $line = substr($line,0,512);
-        return $line;
-    }
-
-    /**
-     * @ignore
-     */
-    private function _line_to_item($line)
-    {
-        $fields = explode('//',$line,6);
-        // date, priority, repeats, key, item, msg
-        if( count($fields) != 6 ) return;
-
-        $out= array();
-        $out['date'] = strtotime(trim($fields[0]));
-        $out['priority'] = trim($fields[1]);
-        $out['repeats'] = (int) trim($fields[2]);
-        $out['section'] = trim($fields[3]);
-        $out['item'] = trim($fields[4]);
-        $out['msg'] = trim($fields[5]);
-        return $out;
-    }
-
-    /**
-     * @ignore
-     */
     private function _write_item($fh, $item)
     {
         fseek($fh, 0, SEEK_END);
-        $line = $this->_item_to_line($item);
+        $line = item_to_line($item);
         if (ftell($fh) != 0) {
             $line = "\n".$line;
         }
@@ -219,7 +189,7 @@ class FileLogger implements Logger
             if (flock($fh, LOCK_EX)) {
                 $lastline = $this->_last_line($fh);
                 if ($lastline) {
-                    $expanded = $this->_line_to_item($lastline);
+                    $expanded = line_to_item($lastline);
                     if ($this->_compare_item($expanded,$item)) {
                         // erase the last line
                         $this->_erase_last_line($fh);

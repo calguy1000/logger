@@ -65,7 +65,7 @@ class Query
             break;
 
         default:
-            throw new \LogicException("$key is not a valid member of ".__CLASS__);
+            throw new \InvalidArgumentException("$key is not a valid member of ".__CLASS__);
         }
     }
 
@@ -77,7 +77,7 @@ class Query
         $val = trim($val);
         switch( $key ) {
         case 'filename':
-            if( !is_file($val) || !is_readable($val) ) throw new \LogicException("$val is not readable");
+            if( !is_file($val) || !is_readable($val) ) throw new \InvalidArgumentException("$val is not readable");
             $this->_data[$key]= $val;
             break;
 
@@ -105,7 +105,7 @@ class Query
                 $this->_data[$key] = $val;
                 break;
             default:
-                throw new \LogicException("$val is an invalid value for the priority of a ".__CLASS__);
+                throw new \InvalidArgumentException("$val is an invalid value for the priority of a ".__CLASS__);
             }
             break;
 
@@ -128,7 +128,7 @@ class Query
             break;
 
         default:
-            throw new \LogicException("$key is not a valid member of ".__CLASS__);
+            throw new \InvalidArgumentException("$key is not a valid member of ".__CLASS__);
         }
     }
 
@@ -136,11 +136,12 @@ class Query
      * Execute the query given the current parameters.
      *
      * @return ResultSet
+     * @throws \InvalidArgumentException
      */
     public function &execute()
     {
         // results in a resultset object
-        if( !isset($this->_data['filename']) ) throw new \LogicException("A filename must be provided to ".__CLASS__);
+        if( !isset($this->_data['filename']) ) throw new \InvalidArgumentException("A filename must be provided to ".__CLASS__);
         $obj = new ResultSet($this);
         return $obj;
     }
